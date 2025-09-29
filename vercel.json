@@ -28,8 +28,8 @@
     }
   ],
   "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "JWT_SECRET": "@jwt_secret",
+    "MONGODB_URI": "mongodb://localhost:27017/studiopro",
+    "JWT_SECRET": "your_jwt_secret_here",
     "NODE_ENV": "production",
     "CONTACT_EMAIL": "dubeyatharv36@gmail.com",
     "CONTACT_PHONE": "7021763330",
