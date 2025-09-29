@@ -80,6 +80,7 @@ app.get('/health', (req, res) => {
     res.json({ 
         status: 'OK', 
         message: 'Studio Pro API is running',
+        timestamp: new Date().toISOString(),
         contact: {
             email: process.env.CONTACT_EMAIL || 'dubeyatharv36@gmail.com',
             phone: process.env.CONTACT_PHONE || '7021763330',
@@ -88,19 +89,46 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Test endpoint
+app.get('/test', (req, res) => {
+    res.json({ 
+        status: 'OK', 
+        message: 'Test endpoint is working',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error('API Error:', err.stack);
     res.status(500).json({ 
         message: 'Something went wrong!',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({ 
+        message: 'Route not found',
+        path: req.originalUrl,
+        timestamp: new Date().toISOString()
     });
 });
 
 // For Vercel serverless functions
 module.exports = async (req, res) => {
-    await connectToDatabase();
-    return app(req, res);
+    try {
+        await connectToDatabase();
+        return app(req, res);
+    } catch (error) {
+        console.error('Function invocation error:', error);
+        res.status(500).json({ 
+            message: 'Internal server error', 
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined 
+        });
+    }
 };
 
 // For local development
