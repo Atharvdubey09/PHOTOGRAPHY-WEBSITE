@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Pro - Professional Photography Services</title>
+    <link rel="icon" href="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=32&h=32&fit=crop" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+        <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-toggle">
+            <i class="fas fa-sun light-icon"></i>
+            <i class="fas fa-moon dark-icon"></i>
+        </button>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
+    <!-- Cursor Effect -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+    
+    <!-- Mouse Move Parallax Elements -->
+    <div class="parallax-elements">
+        <div class="parallax-element element-1"></div>
+        <div class="parallax-element element-2"></div>
+        <div class="parallax-element element-3"></div>
+    </div>
+    <!-----header----->
+    <header class="header scrolled" style="transform: translateY(0px);">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo Section -->
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Studio Pro</h1>
+                        <span class="logo-tagline">Professional Photography</span>
+                    </div>
+                </div>
+                
+                <!-- Navigation Menu -->
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <!-- User Authentication Section -->
+                <div class="auth-section">
+                    <!-- User Status Indicator (when logged in) -->
+                    <div class="user-status" id="user-status" style="display: none;">
+                        <span class="user-greeting" id="user-greeting">Welcome, User!</span>
+                        <button onclick="logout()" class="auth-btn logout-btn">Sign Out</button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-----main----->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="home-section">
+            <div class="hero-background">
+                <div class="hero-image-slider">
+                    <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1920&h=1080&fit=crop')"></div>
+                    <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1554048612-b6a482b55e84?w=1920&h=1080&fit=crop')"></div>
+                    <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1609902726285-00668009f004?w=1920&h=1080&fit=crop')"></div>
+                </div>
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Welcome to Studio Pro</h1>
+                    <p>Your creative partner for professional photography and visual storytelling</p>
+                    <div class="button-group">
+                        <a href="booking.html" class="cta-button">Book a Session</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>About Us</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Creative Journey</h3>
+                        <p>Studio Pro has been capturing life's precious moments for over a decade, specializing in creating timeless wedding photography that celebrates both cultural traditions and modern romance. Our team of professional photographers brings together artistic vision and technical expertise to tell your unique love story.</p>
+                        <p>From intimate bridal portraits with sparkling elegance to romantic pre-wedding shoots in the rain, we believe every moment tells a story, and we're here to help you tell yours with authenticity and beauty.</p>
+                        
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <h4>500+</h4>
+                                <p>Weddings Captured</p>
+                            </div>
+                            <div class="stat-item">
+                                <h4>10+</h4>
+                                <p>Years Experience</p>
+                            </div>
+                            <div class="stat-item">
+                                <h4>100%</h4>
+                                <p>Client Satisfaction</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-images">
+                        <div class="about-image main-image">
+                            <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=500&h=600&fit=crop" alt="Elegant Bridal Photography - Studio Pro">
+                            <div class="image-overlay">
+                                <span class="image-tag">Bridal Elegance</span>
+                            </div>
+                        </div>
+                        <div class="about-image small-image">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=250&h=300&fit=crop" alt="Romantic Pre-Wedding Photography">
+                            <div class="image-overlay">
+                                <span class="image-tag">Pre-Wedding Romance</span>
+                            </div>
+                        </div>
+                        <div class="about-image small-image">
+                            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=250&h=300&fit=crop" alt="South Indian Wedding Photography">
+                            <div class="image-overlay">
+                                <span class="image-tag">Cultural Traditions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="services-slider">
+                <button class="slider-arrow prev-arrow">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow next-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <div class="services-track">
+                    <div class="service-card">
+                        <i class="fas fa-camera"></i>
+                        <h3>Portrait Photography</h3>
+                        <p>Professional portraits for individuals and families</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Wedding Photography</h3>
+                        <p>Capturing your special day with cultural beauty and romantic elegance</p>
+                        <a href="wedding-photography.html" class="service-btn">Explore Wedding Poses</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-building"></i>
+                        <h3>Commercial Photography</h3>
+                        <p>High-quality images for your business</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Event Photography</h3>
+                        <p>Memorable coverage of special events and celebrations</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-baby"></i>
+                        <h3>Family & Baby Photos</h3>
+                        <p>Capturing precious moments of your growing family</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-globe"></i>
+                        <h3>Travel Photography</h3>
+                        <p>Destination shoots and landscape photography</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Production</h3>
+                        <p>Professional video services for events and commercials</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-camera-retro"></i>
+                        <h3>Vintage Style Shoots</h3>
+                        <p>Classic and retro-themed photography sessions</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="slider-dots"></div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Creative Journey & Portfolio Showcase Section -->
+        <section id="creative-journey" class="creative-journey-section">
+            <div class="container">
+                <h2>Our Creative Journey</h2>
+                <p class="section-subtitle">Inspired by love stories from around the world - from elegant bridal portraits to romantic rain photography</p>
+                
+                <div class="journey-grid">
+                    <!-- Bridal Elegance -->
+                    <div class="journey-item featured-large">
+                        <div class="journey-image">
+                            <img src="https://images.unsplash.com/photo-1594736797933-d0201ba2fe65?w=700&h=500&fit=crop" 
+                                 alt="Bridal Photography - Sparkle Wedding Dress and Professional Poses">
+                            <div class="journey-overlay">
+                                <div class="journey-content">
+                                    <h3>Bridal Elegance</h3>
+                                    <p>Capturing the beauty of sparkle wedding dresses and professional bridal poses that celebrate your special day</p>
+                                    <div class="journey-tags">
+                                        <span class="tag">Bridal Portraits</span>
+                                        <span class="tag">Professional Poses</span>
+                                        <span class="tag">Elegant Styling</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- South Indian Pre-Wedding -->
+                    <div class="journey-item">
+                        <div class="journey-image">
+                            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400&h=300&fit=crop" 
+                                 alt="South Indian Pre-Wedding Photography in Rain">
+                            <div class="journey-overlay">
+                                <div class="journey-content">
+                                    <h3>Monsoon Romance</h3>
+                                    <p>Unique pre-wedding shoots in rain for South Indian couples, creating magical moments</p>
+                                    <div class="journey-tags">
+                                        <span class="tag">Rain Photography</span>
+                                        <span class="tag">South Indian</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Couple Photography -->
+                    <div class="journey-item">
+                        <div class="journey-image">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop" 
+                                 alt="Romantic Couple Photography Poses">
+                            <div class="journey-overlay">
+                                <div class="journey-content">
+                                    <h3>Love Stories</h3>
+                                    <p>Romantic couple poses that capture deep emotional connections and intimate moments</p>
+                                    <div class="journey-tags">
+                                        <span class="tag">Couple Poses</span>
+                                        <span class="tag">Romance</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Creative Artistry -->
+                    <div class="journey-item">
+                        <div class="journey-image">
+                            <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop" 
+                                 alt="Creative Wedding Photography Techniques">
+                            <div class="journey-overlay">
+                                <div class="journey-content">
+                                    <h3>Creative Artistry</h3>
+                                    <p>Innovative photography techniques and creative compositions for unique wedding stories</p>
+                                    <div class="journey-tags">
+                                        <span class="tag">Creative Shots</span>
+                                        <span class="tag">Artistic Vision</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Traditional Ceremonies -->
+                    <div class="journey-item">
+                        <div class="journey-image">
+                            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=300&fit=crop" 
+                                 alt="Traditional Indian Wedding Ceremonies">
+                            <div class="journey-overlay">
+                                <div class="journey-content">
+                                    <h3>Sacred Ceremonies</h3>
+                                    <p>Honoring cultural traditions and sacred wedding rituals with respectful photography</p>
+                                    <div class="journey-tags">
+                                        <span class="tag">Traditional</span>
+                                        <span class="tag">Cultural Heritage</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Destination Weddings -->
+                    <div class="journey-item">
+                        <div class="journey-image">
+                            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop" 
+                                 alt="Destination Wedding Photography">
+                            <div class="journey-overlay">
+                                <div class="journey-content">
+                                    <h3>Destination Dreams</h3>
+                                    <p>Beautiful destination weddings and outdoor celebrations in stunning locations</p>
+                                    <div class="journey-tags">
+                                        <span class="tag">Destination</span>
+                                        <span class="tag">Outdoor</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Portfolio CTA -->
+                <div class="journey-cta">
+                    <h3>Ready to Start Your Love Story?</h3>
+                    <p>Let us capture your unique moments with the same passion and creativity that inspires us every day</p>
+                    <div class="cta-buttons">
+                        <a href="wedding-photography.html" class="cta-btn primary">View Wedding Portfolio</a>
+                        <a href="booking.html" class="cta-btn secondary">Book Your Session</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Photography Highlight Section -->
+        <section class="wedding-highlight-section">
+            <div class="container">
+                <div class="wedding-highlight-content">
+                    <div class="wedding-text-content">
+                        <h2>Wedding Photography Expertise</h2>
+                        <p class="wedding-subtitle">Celebrating love stories with cultural elegance and modern artistry</p>
+                        
+                        <div class="wedding-features">
+                            <div class="wedding-feature">
+                                <i class="fas fa-heart"></i>
+                                <div class="feature-content">
+                                    <h4>Romantic Poses</h4>
+                                    <p>Tender moments that capture deep emotional connections</p>
+                                </div>
+                            </div>
+                            
+                            <div class="wedding-feature">
+                                <i class="fas fa-om"></i>
+                                <div class="feature-content">
+                                    <h4>Traditional South Indian</h4>
+                                    <p>Honoring cultural heritage with sacred ceremony photography</p>
+                                </div>
+                            </div>
+                            
+                            <div class="wedding-feature">
+                                <i class="fas fa-camera-retro"></i>
+                                <div class="feature-content">
+                                    <h4>Creative Modern Shots</h4>
+                                    <p>Artistic compositions blending tradition with contemporary style</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="wedding-cta">
+                            <a href="wedding-photography.html" class="wedding-btn">Explore Wedding Poses & Styles</a>
+                            <a href="booking.html" class="wedding-btn secondary">Book Wedding Session</a>
+                        </div>
+                    </div>
+                    
+                    <div class="wedding-image-showcase">
+                        <div class="showcase-image main-wedding">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=600&fit=crop" alt="Romantic Wedding Photography">
+                            <div class="image-label">Romantic Moments</div>
+                        </div>
+                        <div class="showcase-image traditional-wedding">
+                            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=350&h=250&fit=crop" alt="Traditional South Indian Wedding">
+                            <div class="image-label">Cultural Traditions</div>
+                        </div>
+                        <div class="showcase-image creative-wedding">
+                            <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=350&h=250&fit=crop" alt="Creative Wedding Photography">
+                            <div class="image-label">Modern Artistry</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <h2>Our Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-category="wedding">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop" alt="Wedding Photography">
+                        <div class="gallery-overlay">
+                            <h3>Wedding Photography</h3>
+                            <p>Timeless moments captured forever</p>
+                            <button class="gallery-zoom">View</button>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="portrait">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=400&fit=crop" alt="Portrait Photography">
+                        <div class="gallery-overlay">
+                            <h3>Portrait Art</h3>
+                            <p>Professional studio portraits</p>
+                            <button class="gallery-zoom">View</button>
+                        </div>
+                    </div>
+                    <div class="gallery-item tall" data-category="events">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=800&fit=crop" alt="Event Photography">
+                        <div class="gallery-overlay">
+                            <h3>Event Coverage</h3>
+                            <p>Capturing the perfect moments</p>
+                            <button class="gallery-zoom">View</button>
+                        </div>
+                    </div>
+                    <div class="gallery-item wide" data-category="landscape">
+                        <img src="https://images.unsplash.com/photo-1520962880247-cfaf541c8724?w=800&h=400&fit=crop" alt="Landscape Photography">
+                        <div class="gallery-overlay">
+                            <h3>Landscape Beauty</h3>
+                            <p>Nature's finest compositions</p>
+                            <button class="gallery-zoom">View</button>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="commercial">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=400&fit=crop" alt="Commercial Photography">
+                        <div class="gallery-overlay">
+                            <h3>Commercial Shots</h3>
+                            <p>Professional product photography</p>
+                            <button class="gallery-zoom">View</button>
+                        </div>
+                    </div>
+                    <div class="gallery-item" data-category="family">
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=400&fit=crop" alt="Family Photography">
+                        <div class="gallery-overlay">
+                            <h3>Family Portraits</h3>
+                            <p>Cherished family memories</p>
+                            <button class="gallery-zoom">View</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-modal">
+                    <span class="modal-close">&times;</span>
+                    <img src="" alt="Modal Image" class="modal-image">
+                    <div class="modal-caption"></div>
+                </div>
+                <div class="gallery-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="wedding">Wedding</button>
+                    <button class="filter-btn" data-filter="portrait">Portrait</button>
+                    <button class="filter-btn" data-filter="events">Events</button>
+                    <button class="filter-btn" data-filter="landscape">Landscape</button>
+                    <button class="filter-btn" data-filter="commercial">Commercial</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section id="statistics" class="statistics-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item" data-count="1500">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3 class="counter">50</h3>
+                        <p>Booking Sessions</p>
+                    </div>
+                    <div class="stat-item" data-count="120">
+                        <i class="fas fa-award"></i>
+                        <h3 class="counter">5</h3>
+                        <p>Awards Won</p>
+                    </div>
+                    <div class="stat-item" data-count="850">
+                        <i class="fas fa-users"></i>
+                        <h3 class="counter">10k+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat-item" data-count="25">
+                        <i class="fas fa-user-tie"></i>
+                        <h3 class="counter">7</h3>
+                        <p>Team Members</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2>Client Stories</h2>
+                <div class="testimonial-carousel">
+                    <div class="testimonial-track">
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="Sarah Johnson">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="quote-icon">
+                                    <i class="fas fa-quote-left"></i>
+                                </div>
+                                <p>"Their attention to detail and creativity exceeded our expectations. The wedding photos are absolutely stunning!"</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4>Sarah Johnson</h4>
+                                <span>Wedding Client</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Michael Chen">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="quote-icon">
+                                    <i class="fas fa-quote-left"></i>
+                                </div>
+                                <p>"The commercial photoshoot transformed our brand image. Professional, creative, and outstanding results!"</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4>Michael Chen</h4>
+                                <span>Business Owner</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Emily Davis">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="quote-icon">
+                                    <i class="fas fa-quote-left"></i>
+                                </div>
+                                <p>"Our family portraits came out beautifully. They captured genuine moments we'll cherish forever."</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4>Emily Davis</h4>
+                                <span>Family Portrait Client</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-nav">
+                        <button class="prev-testimonial"><i class="fas fa-chevron-left"></i></button>
+                        <div class="testimonial-dots"></div>
+                        <button class="next-testimonial"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <p class="section-subtitle">Ready to capture your special moments? Contact us today!</p>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Address</h3>
+                            <p>Studio Pro Photography<br>Mumbai, Maharashtra, India</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <h3>Phone</h3>
+                            <p>7021763330</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email</h3>
+                            <p>dubeyatharv36@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <h3>Hours</h3>
+                            <p>Mon-Sat: 9AM - 6PM<br>Sunday: By Appointment</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <form id="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                                </div>
+                                <div class="form-group">
+                                    <select name="service" id="service-select">
+                                        <option value="">Select a Service</option>
+                                        <option value="Portrait Photography">Portrait Photography</option>
+                                        <option value="Wedding Photography">Wedding Photography</option>
+                                        <option value="Event Photography">Event Photography</option>
+                                        <option value="Commercial Photography">Commercial Photography</option>
+                                        <option value="Family Photography">Family Photography</option>
+                                        <option value="General Inquiry">General Inquiry</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <span>Send Message</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-logo">Studio Pro</h3>
+                    <p>Capturing life's precious moments with artistic vision and professional excellence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Wedding Photography</a></li>
+                        <li><a href="#">Portrait Sessions</a></li>
+                        <li><a href="#">Event Coverage</a></li>
+                        <li><a href="#">Commercial Shoots</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</li>
+                        <li><i class="fas fa-phone"></i> 7021763330</li>
+                        <li><i class="fas fa-envelope"></i> dubeyatharv36@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Studio Pro. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-conditions.html">Terms of Service</a>
+                    <a href="cookie-policy.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Custom Cursor and Interactive Features -->
+    <script>
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.transform = `translate(${posX}px, ${posY}px)`;
+            cursorOutline.style.transform = `translate(${posX}px, ${posY}px)`;
+            
+            // Parallax Effect for elements
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            parallaxElements.forEach((el, index) => {
+                const speed = (index + 1) * 0.05;
+                const x = (window.innerWidth - posX * speed) / 100;
+                const y = (window.innerHeight - posY * speed) / 100;
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Hover effect for clickable elements
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.width = '60px';
+                cursorOutline.style.height = '60px';
+                cursorOutline.style.border = '2px solid var(--accent-color)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.border = '2px solid var(--accent-color)';
+            });
+        });
+
+        // Gallery Modal
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const modal = document.querySelector('.gallery-modal');
+        const modalImg = document.querySelector('.modal-image');
+        const galleryModalClose = document.querySelector('.gallery-modal .modal-close');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').src;
+                const caption = item.querySelector('h3').textContent;
+                modalImg.src = imgSrc;
+                modal.style.display = 'flex';
+            });
+        });
+        
+        galleryModalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Gallery Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth Scroll Animation for Sections
+        const sections = document.querySelectorAll('section');
+        const options = {
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, options);
+
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 0.8s ease-out';
+            observer.observe(section);
+        });
+
+        // Video Showcase Functionality - Now using images only
+        const videoItems = document.querySelectorAll('.video-item');
+
+        // Add hover effects for image items
+        videoItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const img = item.querySelector('img');
+                if (img) {
+                    img.style.transform = 'scale(1.05)';
+                    img.style.transition = 'transform 0.3s ease';
+                }
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                const img = item.querySelector('img');
+                if (img) {
+                    img.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+
+    <!-- Services Slider JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.services-track');
+            const cards = document.querySelectorAll('.service-card');
+            const prevButton = document.querySelector('.prev-arrow');
+            const nextButton = document.querySelector('.next-arrow');
+            const dotsContainer = document.querySelector('.slider-dots');
+            
+            const cardWidth = cards[0].offsetWidth + 32; // Including gap
+            const cardsPerView = 4;
+            const totalSlides = Math.ceil(cards.length / cardsPerView);
+            let currentSlide = 0;
+            
+            // Create dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            
+            // Update dots
+            function updateDots() {
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Go to specific slide
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                const offset = -cardWidth * (currentSlide * cardsPerView);
+                track.style.transform = `translateX(${offset}px)`;
+                updateDots();
+            }
+            
+            // Next slide
+            nextButton.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    goToSlide(currentSlide + 1);
+                } else {
+                    // Loop back to first slide with animation
+                    track.style.transition = 'none';
+                    goToSlide(0);
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    }, 10);
+                }
+            });
+            
+            // Previous slide
+            prevButton.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    goToSlide(currentSlide - 1);
+                } else {
+                    // Loop to last slide with animation
+                    track.style.transition = 'none';
+                    goToSlide(totalSlides - 1);
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    }, 10);
+                }
+            });
+            
+            // Auto-play functionality
+            let autoplayInterval = setInterval(() => nextButton.click(), 5000);
+            
+            // Pause autoplay on hover
+            track.addEventListener('mouseenter', () => {
+                clearInterval(autoplayInterval);
+            });
+            
+            track.addEventListener('mouseleave', () => {
+                autoplayInterval = setInterval(() => nextButton.click(), 5000);
+            });
+        });
+    </script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Hero Image Slider Script -->
+    <script>
+        // Hero Image Slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            
+            // Change slide every 5 seconds
+            setInterval(nextSlide, 5000);
+        });
+    </script>
+    
+    <!-- Contact Form Script -->
+    <script>
+        // Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: e.target.name.value,
+                email: e.target.email.value,
+                phone: e.target.phone.value,
+                service: e.target.service.value,
+                message: e.target.message.value
+            };
+            
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Thank you for contacting us! We will get back to you soon.');
+                    e.target.reset(); // Clear the form
+                } else {
+                    alert(data.message || 'Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Check for pre-selected service from session storage
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedService = sessionStorage.getItem('selectedService');
+            if (selectedService) {
+                const serviceSelect = document.getElementById('service-select');
+                if (serviceSelect) {
+                    const option = Array.from(serviceSelect.options).find(opt => 
+                        opt.value === selectedService
+                    );
+                    if (option) {
+                        serviceSelect.value = option.value;
+                    }
+                    // Clear the session storage after using it
+                    sessionStorage.removeItem('selectedService');
+                }
+            }
+        });
+    </script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/counter-animation.js"></script>
+    <script src="js/user-auth.js"></script>
+</body>
+</html>

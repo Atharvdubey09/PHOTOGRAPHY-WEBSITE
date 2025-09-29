@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Photography - Studio Pro</title>
+    <link rel="icon" href="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=32&h=32&fit=crop" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Wedding-specific styles with glass-morphism */
+        .wedding-hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wedding-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop') center/cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .wedding-hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .wedding-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pose-category {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .category-description {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .poses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pose-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pose-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .pose-card:hover::before {
+            left: 100%;
+        }
+
+        .pose-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .pose-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .pose-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+        }
+
+        .pose-card:hover .pose-overlay {
+            opacity: 1;
+        }
+
+        .pose-icon {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .pose-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .pose-description {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .pose-tips {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .cultural-highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #d63031;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .booking-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .booking-content {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .booking-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .booking-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .wedding-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .poses-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .category-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Studio Pro</h1>
+                        <span class="logo-tagline">Professional Photography</span>
+                    </div>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="index.html#gallery">Gallery</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Wedding Hero Section -->
+    <section class="wedding-hero">
+        <div class="wedding-hero-content">
+            <h1>Wedding Photography</h1>
+            <p>Capturing love stories with timeless elegance and cultural beauty</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Romantic Poses Section -->
+            <section class="pose-category">
+                <div class="category-header">
+                    <h2 class="category-title">Romantic Couple Poses</h2>
+                    <p class="category-description">Tender, intimate moments that capture the deep connection between couples. These poses emphasize emotion, love, and the special bond you share.</p>
+                </div>
+                
+                <div class="poses-grid">
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-heart pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Forehead Kiss</h3>
+                        <p class="pose-description">A tender forehead kiss creates an intimate, peaceful moment that shows protection and deep affection. Perfect for sunset or golden hour shots.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Close your eyes for natural emotion. Works beautifully with backlighting to create a romantic glow.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-hands-holding-heart pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Walking Together</h3>
+                        <p class="pose-description">Natural walking shots capture authentic joy and connection. These candid moments show your relationship in motion.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Look at each other while walking, not the camera. Laugh naturally for genuine expressions.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-eye pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Gazing Into Eyes</h3>
+                        <p class="pose-description">Deep eye contact creates powerful, emotional portraits that showcase the love and connection between partners.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Stand close, faces angled slightly toward each other. Focus on the emotion in your eyes.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1536651333423-2b0bdf617043?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-infinity pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Silhouette Embrace</h3>
+                        <p class="pose-description">Dramatic silhouettes against sunset or bright backgrounds create artistic, timeless images that focus on your connection.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Position yourselves between the camera and a bright light source. Hold the pose steady for sharp silhouettes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- South Indian Traditional Poses Section -->
+            <section class="pose-category">
+                <div class="category-header">
+                    <span class="cultural-highlight">Traditional South Indian</span>
+                    <h2 class="category-title">Cultural Wedding Poses</h2>
+                    <p class="category-description">Honor your heritage with traditional South Indian wedding poses that celebrate cultural beauty, family traditions, and sacred moments of your ceremony.</p>
+                </div>
+                
+                <div class="poses-grid">
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-om pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Temple Blessings</h3>
+                        <p class="pose-description">Sacred moments at the temple with traditional poses showing reverence and cultural beauty. Perfect for pre-wedding or ceremony shots.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Cultural Note:</div>
+                            <p>Respect temple customs. Coordinate with priests for appropriate timing and positioning during ceremonies.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-hands-praying pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Mangalsutra Ceremony</h3>
+                        <p class="pose-description">The sacred moment of tying the mangalsutra, capturing the groom's hands as he places this symbol of marriage around the bride's neck.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Cultural Note:</div>
+                            <p>Focus on the hands and expressions. This is one of the most important moments in South Indian weddings.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1587271636175-90d58cdad458?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-fire pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Agni Pradakshina</h3>
+                        <p class="pose-description">The seven sacred rounds around the holy fire, each step representing vows and promises for your life together.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Cultural Note:</div>
+                            <p>Capture each round from different angles. The fire creates beautiful lighting for dramatic shots.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1595434091143-b375ced5fe5c?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-seedling pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Traditional Jewelry Focus</h3>
+                        <p class="pose-description">Close-up shots highlighting intricate South Indian bridal jewelry, mehndi designs, and traditional attire details.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Use macro lens for jewelry details. Natural lighting brings out the gold's warm tones beautifully.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Creative Modern Poses Section -->
+            <section class="pose-category">
+                <div class="category-header">
+                    <h2 class="category-title">Creative Modern Poses</h2>
+                    <p class="category-description">Contemporary and artistic poses that blend traditional elements with modern photography techniques for unique, Instagram-worthy shots.</p>
+                </div>
+                
+                <div class="poses-grid">
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-camera-retro pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Mirror Reflections</h3>
+                        <p class="pose-description">Creative use of mirrors, water reflections, or glass surfaces to create unique perspectives and artistic compositions.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Clean mirrors before shooting. Experiment with angles to avoid photographer's reflection while capturing the couple.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-magic pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Fabric Motion</h3>
+                        <p class="pose-description">Dynamic shots with flowing dupatta, sari, or veil creating movement and drama in the frame.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Use a fast shutter speed to freeze motion, or slower speeds for artistic blur. Have an assistant help with fabric.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-crown pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Elevated Perspectives</h3>
+                        <p class="pose-description">Drone shots or high-angle perspectives that show the couple in beautiful locations with geometric patterns.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Use leading lines in architecture or nature. Plan for golden hour light for warm, romantic tones.</p>
+                        </div>
+                    </div>
+
+                    <div class="pose-card">
+                        <div class="pose-image" style="background-image: url('https://images.unsplash.com/photo-1594736797933-d0201ba2fe65?w=600&h=400&fit=crop')">
+                            <div class="pose-overlay">
+                                <i class="fas fa-star pose-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="pose-title">Night Photography</h3>
+                        <p class="pose-description">Romantic evening shots with city lights, fairy lights, or natural lighting creating magical atmospheres.</p>
+                        <div class="pose-tips">
+                            <div class="tip-title">Pro Tip:</div>
+                            <p>Use tripod for stability. Combine ambient light with gentle flash fill for perfectly exposed subjects.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Booking Call-to-Action -->
+        <section class="booking-section">
+            <div class="container">
+                <div class="booking-content">
+                    <h2>Ready to Capture Your Love Story?</h2>
+                    <p>Let us create beautiful, culturally rich wedding photography that celebrates your unique love story. From traditional ceremonies to modern artistic shots, we capture every precious moment.</p>
+                    <div>
+                        <strong>Contact us:</strong><br>
+                        📧 dubeyatharv36@gmail.com<br>
+                        📞 7021763330<br>
+                        📍 Mumbai, Maharashtra, India
+                    </div>
+                    <a href="booking.html" class="booking-button">Book Your Wedding Photography</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo-section">
+                        <div class="logo-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h3>Studio Pro</h3>
+                            <span>Professional Photography</span>
+                        </div>
+                    </div>
+                    <p>Capturing life's precious moments with creativity and passion.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="index.html#gallery">Gallery</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> dubeyatharv36@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> 7021763330</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Studio Pro. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-conditions.html">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animate pose categories on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.3s';
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.pose-category').forEach((category, index) => {
+            category.style.animationDelay = `${index * 0.2}s`;
+            category.style.animationPlayState = 'paused';
+            observer.observe(category);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileMenuToggle.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

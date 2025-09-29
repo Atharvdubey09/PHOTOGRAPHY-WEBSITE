@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Studio Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .services-page {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #f8f9fa 100%);
+            min-height: 100vh;
+            padding: 120px 0 60px;
+            position: relative;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
+            padding: 4rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .services-header h1 {
+            font-family: var(--font-primary);
+            color: var(--text-dark);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--hover-color) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .services-header p {
+            color: #666;
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-detailed-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-detailed-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240, 200, 200, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .service-detailed-card:hover::before {
+            left: 100%;
+        }
+
+        .service-detailed-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--hover-color) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(199, 133, 133, 0.3);
+        }
+
+        .service-detailed-card h3 {
+            font-family: var(--font-primary);
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-detailed-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            color: #555;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .service-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-price span {
+            font-size: 1rem;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .service-action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .service-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .service-btn.primary {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--hover-color) 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(199, 133, 133, 0.3);
+        }
+
+        .service-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(199, 133, 133, 0.4);
+        }
+
+        .service-btn.secondary {
+            background: rgba(255,255,255,0.8);
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .service-btn.secondary:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--hover-color) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(199, 133, 133, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(199, 133, 133, 0.4);
+        }
+
+        .package-highlight {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-action-buttons {
+                flex-direction: column;
+            }
+            
+            .services-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <header class="header scrolled" style="transform: translateY(0px);">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo Section -->
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Studio Pro</h1>
+                        <span class="logo-tagline">Professional Photography</span>
+                    </div>
+                </div>
+                
+                <!-- Navigation Menu -->
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="index.html#gallery">Gallery</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                
+                <!-- User Authentication Section -->
+                <div class="auth-section">
+                    <!-- User Status Indicator (when logged in) -->
+                    <div class="user-status" id="user-status" style="display: none;">
+                        <span class="user-greeting" id="user-greeting">Welcome, User!</span>
+                        <button onclick="logout()" class="auth-btn logout-btn">Sign Out</button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="services-page">
+        <div class="services-container">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+
+            <div class="services-header">
+                <h1>Our Photography Services</h1>
+                <p>Professional photography solutions tailored to capture your most precious moments</p>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                    <a href="booking.html" class="service-btn primary">
+                        <i class="fas fa-calendar-plus"></i>
+                        Book Now
+                    </a>
+                    <a href="index.html#contact" class="service-btn secondary get-quote-btn" data-service="General">
+                        <i class="fas fa-phone"></i>
+                        Get Quote
+                    </a>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <!-- Portrait Photography -->
+                <div class="service-detailed-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Portrait Photography</h3>
+                    <p>Professional individual and family portraits that capture your personality and create lasting memories.</p>
+                    
+                    <ul class="service-features">
+                        <li>Professional studio lighting setup</li>
+                        <li>Multiple outfit changes included</li>
+                        <li>30+ edited high-resolution images</li>
+                        <li>Online gallery for easy sharing</li>
+                        <li>Print release included</li>
+                    </ul>
+                    
+                    <div class="service-price">$199 <span>starting price</span></div>
+                    
+                    <div class="service-action-buttons">
+                        <a href="booking.html" class="service-btn primary">
+                            <i class="fas fa-camera"></i>
+                            Book Session
+                        </a>
+                        <a href="index.html#contact" class="service-btn secondary get-quote-btn" data-service="Portrait">
+                            <i class="fas fa-info-circle"></i>
+                            Get Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Wedding Photography -->
+                <div class="service-detailed-card">
+                    <div class="package-highlight">Most Popular</div>
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Wedding Photography</h3>
+                    <p>Complete wedding day coverage with premium editing and beautiful storytelling of your special day.</p>
+                    
+                    <ul class="service-features">
+                        <li>Full day coverage (8+ hours)</li>
+                        <li>Engagement session included</li>
+                        <li>500+ edited high-resolution images</li>
+                        <li>Custom wedding album</li>
+                        <li>Online gallery with download rights</li>
+                        <li>Second photographer available</li>
+                    </ul>
+                    
+                    <div class="service-price">$1,499 <span>complete package</span></div>
+                    
+                    <div class="service-action-buttons">
+                        <a href="booking.html" class="service-btn primary">
+                            <i class="fas fa-rings-wedding"></i>
+                            Book Wedding
+                        </a>
+                        <a href="index.html#contact" class="service-btn secondary get-quote-btn" data-service="Wedding">
+                            <i class="fas fa-images"></i>
+                            Get Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Event Photography -->
+                <div class="service-detailed-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <h3>Event Photography</h3>
+                    <p>Professional event coverage for corporate events, parties, and special celebrations.</p>
+                    
+                    <ul class="service-features">
+                        <li>Event coverage (4-6 hours)</li>
+                        <li>Candid and posed photography</li>
+                        <li>200+ edited high-resolution images</li>
+                        <li>Same-day preview gallery</li>
+                        <li>Corporate branding options</li>
+                    </ul>
+                    
+                    <div class="service-price">$499 <span>per event</span></div>
+                    
+                    <div class="service-action-buttons">
+                        <a href="booking.html" class="service-btn primary">
+                            <i class="fas fa-calendar-check"></i>
+                            Book Event
+                        </a>
+                        <a href="index.html#contact" class="service-btn secondary get-quote-btn" data-service="Event">
+                            <i class="fas fa-briefcase"></i>
+                            Get Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Commercial Photography -->
+                <div class="service-detailed-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Commercial Photography</h3>
+                    <p>High-quality images for your business needs, products, and marketing materials.</p>
+                    
+                    <ul class="service-features">
+                        <li>Product photography</li>
+                        <li>Professional headshots</li>
+                        <li>Commercial usage rights</li>
+                        <li>Multiple format delivery</li>
+                        <li>Expedited turnaround available</li>
+                    </ul>
+                    
+                    <div class="service-price">$299 <span>starting price</span></div>
+                    
+                    <div class="service-action-buttons">
+                        <a href="index.html#contact" class="service-btn primary get-quote-btn" data-service="Commercial">
+                            <i class="fas fa-handshake"></i>
+                            Get Quote
+                        </a>
+                        <a href="index.html#contact" class="service-btn secondary get-quote-btn" data-service="Commercial">
+                            <i class="fas fa-eye"></i>
+                            Get Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Family Photography -->
+                <div class="service-detailed-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Family Photography</h3>
+                    <p>Beautiful family portraits that capture the love and connection between family members.</p>
+                    
+                    <ul class="service-features">
+                        <li>Outdoor or studio sessions</li>
+                        <li>Props and styling assistance</li>
+                        <li>40+ edited high-resolution images</li>
+                        <li>Print package options</li>
+                        <li>Holiday card designs available</li>
+                    </ul>
+                    
+                    <div class="service-price">$249 <span>family session</span></div>
+                    
+                    <div class="service-action-buttons">
+                        <a href="booking.html" class="service-btn primary">
+                            <i class="fas fa-home"></i>
+                            Book Family
+                        </a>
+                        <a href="#" class="service-btn secondary">
+                            <i class="fas fa-baby"></i>
+                            Special Packages
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Travel Photography -->
+                <div class="service-detailed-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>Travel Photography</h3>
+                    <p>Destination photography services for your vacation or special location shoots.</p>
+                    
+                    <ul class="service-features">
+                        <li>Destination travel included</li>
+                        <li>Multiple location shoots</li>
+                        <li>Lifestyle and landscape photos</li>
+                        <li>Travel documentation</li>
+                        <li>Custom itinerary planning</li>
+                    </ul>
+                    
+                    <div class="service-price">$899 <span>+ travel costs</span></div>
+                    
+                    <div class="service-action-buttons">
+                        <a href="booking.html" class="service-btn primary">
+                            <i class="fas fa-plane"></i>
+                            Plan Trip
+                        </a>
+                        <a href="#" class="service-btn secondary">
+                            <i class="fas fa-map-marked-alt"></i>
+                            Destinations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive features
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.02)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Add click animations
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    
+    <!-- Include JavaScript -->
+    <script src="js/user-auth.js"></script>
+    <script>
+        // Initialize quote button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const quoteButtons = document.querySelectorAll('.get-quote-btn');
+            
+            quoteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const serviceType = this.getAttribute('data-service');
+                    if (serviceType) {
+                        sessionStorage.setItem('selectedService', serviceType + ' Photography');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

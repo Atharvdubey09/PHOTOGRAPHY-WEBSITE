@@ -1,0 +1,54 @@
+name: Deploy Studio Pro to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+        
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+        
+    - name: Create uploads directory
+      run: |
+        mkdir -p backend/uploads
+        
+    - name: Update API endpoints for GitHub Pages
+      run: |
+        # Update all localhost references to use relative paths for GitHub Pages
+        find . -name "*.html" -type f -exec sed -i 's|http://localhost:5000||g' {} \;
+        find . -name "*.js" -type f -exec sed -i 's|http://localhost:5000||g' {} \;
+        
+    - name: Build and prepare for deployment
+      run: |
+        echo "Building Studio Pro Photography Website"
+        echo "Contact: dubeyatharv36@gmail.com | Phone: 7021763330 | Mumbai, Maharashtra, India"
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        exclude_assets: |
+          backend/node_modules/**
+          backend/.env
+          *.md
+          .git/**
+          .github/**

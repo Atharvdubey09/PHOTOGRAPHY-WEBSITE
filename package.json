@@ -1,0 +1,25 @@
+{
+  "name": "studio-pro-website",
+  "version": "1.0.0",
+  "description": "Studio Pro - Professional Photography Website with Payment Gateway - Mumbai, Maharashtra, India",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
+    "build": "echo 'Build complete - Studio Pro ready for deployment'",
+    "vercel-build": "echo 'Vercel build complete'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Session - Studio Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="booking.css">
+    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="booking-section">
+        <div class="booking-container">
+            <div class="booking-header">
+                <h1>Book Your Photography Session</h1>
+                <p>Choose your preferred session type and schedule your perfect photoshoot</p>
+            </div>
+
+            <form id="booking-form" class="booking-form" novalidate>
+                <div class="session-types">
+                    <div class="session-type" data-type="portrait" tabindex="0" role="button">
+                        <h3>Portrait Session</h3>
+                        <p>Professional individual or family portraits in studio or location</p>
+                        <p class="price">$199</p>
+                    </div>
+                    <div class="session-type" data-type="event" tabindex="0" role="button">
+                        <h3>Event Coverage</h3>
+                        <p>Full event photography for special occasions and celebrations</p>
+                        <p class="price">$499</p>
+                    </div>
+                    <div class="session-type" data-type="wedding" tabindex="0" role="button">
+                        <h3>Wedding Package</h3>
+                        <p>Complete wedding day coverage with premium editing</p>
+                        <p class="price">$1499</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required 
+                           aria-required="true" autocomplete="name">
+                    <div class="error-message" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required 
+                           aria-required="true" autocomplete="email">
+                    <div class="error-message" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required 
+                           aria-required="true" autocomplete="tel"
+                           placeholder="e.g., +1-234-567-8900">
+                    <div class="error-message" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Preferred Date *</label>
+                    <input type="date" id="date" name="date" required 
+                           aria-required="true">
+                    <div class="error-message" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Preferred Time *</label>
+                    <select id="time" name="time" required aria-required="true">
+                        <option value="">Select a time</option>
+                        <option value="morning">Morning (9AM - 12PM)</option>
+                        <option value="afternoon">Afternoon (1PM - 4PM)</option>
+                        <option value="evening">Evening (5PM - 8PM)</option>
+                    </select>
+                    <div class="error-message" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Additional Notes</label>
+                    <textarea id="message" name="message" rows="4" 
+                              placeholder="Any special requests or requirements..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Book Session</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Gateway Modal -->
+    <div id="payment-gateway-modal" class="payment-gateway-modal">
+        <div class="payment-modal-overlay"></div>
+        <div class="payment-modal-container">
+            <!-- Payment Header -->
+            <div class="payment-header">
+                <div class="payment-logo">
+                    <i class="fas fa-camera"></i>
+                    <span>Studio Pro</span>
+                </div>
+                <button class="payment-close" onclick="closePaymentGateway()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Payment Progress Steps -->
+            <div class="payment-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span>Booking Details</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span>Payment Method</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+
+            <!-- Payment Content -->
+            <div class="payment-content">
+                <!-- Step 1: Booking Summary -->
+                <div class="payment-step" id="step-1" style="display: block;">
+                    <div class="booking-summary">
+                        <h2><i class="fas fa-receipt"></i> Booking Summary</h2>
+                        
+                        <div class="booking-details" id="booking-details">
+                            <!-- Dynamic booking details will be populated here -->
+                        </div>
+
+                        <div class="payment-summary">
+                            <div class="summary-row">
+                                <span>Session Type:</span>
+                                <span id="session-type-display">Portrait Session</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Total Amount:</span>
+                                <span id="total-amount">$199.00</span>
+                            </div>
+                            <div class="summary-row advance-row">
+                                <span>Advance Payment (30%):</span>
+                                <span id="advance-amount">$59.70</span>
+                            </div>
+                            <div class="summary-row remaining-row">
+                                <span>Remaining Amount:</span>
+                                <span id="remaining-amount">$139.30</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-note">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Pay 30% advance to confirm your booking. The remaining amount will be collected on the day of your session.</p>
+                        </div>
+
+                        <button class="payment-btn primary" onclick="goToStep(2)">
+                            <i class="fas fa-arrow-right"></i>
+                            Proceed to Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment Method -->
+                <div class="payment-step" id="step-2" style="display: none;">
+                    <div class="payment-methods">
+                        <h2><i class="fas fa-credit-card"></i> Select Payment Method</h2>
+                        
+                        <!-- Payment Method Tabs -->
+                        <div class="payment-tabs">
+                            <button class="payment-tab active" data-method="card" onclick="selectPaymentMethod('card')">
+                                <i class="fas fa-credit-card"></i>
+                                Credit/Debit Card
+                            </button>
+                            <button class="payment-tab" data-method="paypal" onclick="selectPaymentMethod('paypal')">
+                                <i class="fab fa-paypal"></i>
+                                PayPal
+                            </button>
+                            <button class="payment-tab" data-method="apple" onclick="selectPaymentMethod('apple')">
+                                <i class="fab fa-apple-pay"></i>
+                                Apple Pay
+                            </button>
+                            <button class="payment-tab" data-method="google" onclick="selectPaymentMethod('google')">
+                                <i class="fab fa-google-pay"></i>
+                                Google Pay
+                            </button>
+                        </div>
+
+                        <!-- Card Payment Form -->
+                        <div class="payment-form-container" id="card-form" style="display: block;">
+                            <form id="payment-form" class="payment-form">
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="card-number">Card Number</label>
+                                        <div class="card-input-wrapper">
+                                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                            <div class="card-icons">
+                                                <i class="fab fa-cc-visa"></i>
+                                                <i class="fab fa-cc-mastercard"></i>
+                                                <i class="fab fa-cc-amex"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-name">Cardholder Name</label>
+                                        <input type="text" id="card-name" placeholder="John Doe" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="card-expiry">Expiry Date</label>
+                                        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-cvv">CVV</label>
+                                        <input type="text" id="card-cvv" placeholder="123" maxlength="4" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="billing-zip">Billing ZIP</label>
+                                        <input type="text" id="billing-zip" placeholder="12345" required>
+                                    </div>
+                                </div>
+
+                                <div class="save-card-option">
+                                    <input type="checkbox" id="save-card" name="save-card">
+                                    <label for="save-card">Save this card for future payments</label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Alternative Payment Methods -->
+                        <div class="payment-form-container" id="paypal-form" style="display: none;">
+                            <div class="alternative-payment">
+                                <div class="payment-logo-large">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <p>You will be redirected to PayPal to complete your payment securely.</p>
+                                <div class="payment-amount">
+                                    <span>Amount to Pay: </span>
+                                    <strong id="paypal-amount">$59.70</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-form-container" id="apple-form" style="display: none;">
+                            <div class="alternative-payment">
+                                <div class="payment-logo-large">
+                                    <i class="fab fa-apple-pay"></i>
+                                </div>
+                                <p>Use Touch ID or Face ID to complete your payment with Apple Pay.</p>
+                                <div class="payment-amount">
+                                    <span>Amount to Pay: </span>
+                                    <strong id="apple-amount">$59.70</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-form-container" id="google-form" style="display: none;">
+                            <div class="alternative-payment">
+                                <div class="payment-logo-large">
+                                    <i class="fab fa-google-pay"></i>
+                                </div>
+                                <p>Pay quickly and securely with Google Pay.</p>
+                                <div class="payment-amount">
+                                    <span>Amount to Pay: </span>
+                                    <strong id="google-amount">$59.70</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Actions -->
+                        <div class="payment-actions">
+                            <button class="payment-btn secondary" onclick="goToStep(1)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button class="payment-btn primary" id="process-payment-btn" onclick="processPayment()">
+                                <i class="fas fa-lock"></i>
+                                Pay Securely
+                                <span class="amount-display" id="pay-amount">$59.70</span>
+                            </button>
+                        </div>
+
+                        <!-- Security Info -->
+                        <div class="security-info">
+                            <div class="security-badges">
+                                <div class="security-badge">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>SSL Encrypted</span>
+                                </div>
+                                <div class="security-badge">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Secure Payment</span>
+                                </div>
+                                <div class="security-badge">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>PCI Compliant</span>
+                                </div>
+                            </div>
+                            <p>Your payment information is protected with bank-level security.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="payment-step" id="step-3" style="display: none;">
+                    <div class="payment-confirmation">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Payment Successful!</h2>
+                        <p>Your booking has been confirmed. A confirmation email has been sent to your registered email address.</p>
+                        
+                        <div class="confirmation-details" id="confirmation-details">
+                            <!-- Dynamic confirmation details will be populated here -->
+                        </div>
+
+                        <div class="confirmation-actions">
+                            <button class="payment-btn primary" onclick="window.location.href='index.html'">
+                                <i class="fas fa-home"></i>
+                                Return to Home
+                            </button>
+                            <button class="payment-btn secondary" onclick="window.location.href='booking.html'">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Another Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Overlay -->
+                <div class="payment-processing" id="payment-processing" style="display: none;">
+                    <div class="processing-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <h3>Processing Payment...</h3>
+                    <p>Please wait while we process your payment securely.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/payment-gateway.js"></script>
+
+    <script src="booking.js"></script>
+        // Session type selection
+        const sessionTypes = document.querySelectorAll('.session-type');
+        let selectedSession = null;
+
+        sessionTypes.forEach(session => {
+            session.addEventListener('click', () => {
+                sessionTypes.forEach(s => s.classList.remove('selected'));
+                session.classList.add('selected');
+                selectedSession = session.dataset.type;
+            });
+        });
+
+        // Form submission
+        const bookingForm = document.getElementById('booking-form');
+        const errorMessages = document.querySelectorAll('.error-message');
+
+        // Helper function to show error message
+        const showError = (element, message) => {
+            const errorElement = element.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('error-message')) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        };
+
+        // Helper function to hide error message
+        const hideError = (element) => {
+            const errorElement = element.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('error-message')) {
+                errorElement.style.display = 'none';
+            }
+        };
+
+        // Helper function to validate email
+        const validateEmail = (email) => {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        };
+
+        // Helper function to validate phone
+        const validatePhone = (phone) => {
+            const re = /^\+?[\d\s-]{10,}$/;
+            return re.test(phone);
+        };
+
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Reset all error messages
+            errorMessages.forEach(msg => msg.style.display = 'none');
+
+            // Session type validation
+            if (!selectedSession) {
+                alert('Please select a session type');
+                isValid = false;
+            }
+
+            // Name validation
+            const nameInput = document.getElementById('name');
+            if (!nameInput.value.trim()) {
+                showError(nameInput, 'Please enter your full name');
+                isValid = false;
+            } else {
+                hideError(nameInput);
+            }
+
+            // Email validation
+            const emailInput = document.getElementById('email');
+            if (!validateEmail(emailInput.value)) {
+                showError(emailInput, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                hideError(emailInput);
+            }
+
+            // Phone validation
+            const phoneInput = document.getElementById('phone');
+            if (!validatePhone(phoneInput.value)) {
+                showError(phoneInput, 'Please enter a valid phone number');
+                isValid = false;
+            } else {
+                hideError(phoneInput);
+            }
+
+            // Date validation
+            const dateInput = document.getElementById('date');
+            if (!dateInput.value) {
+                showError(dateInput, 'Please select a date');
+                isValid = false;
+            } else {
+                hideError(dateInput);
+            }
+
+            // Time validation
+            const timeInput = document.getElementById('time');
+            if (!timeInput.value) {
+                showError(timeInput, 'Please select a time slot');
+                isValid = false;
+            } else {
+                hideError(timeInput);
+            }
+
+            if (!isValid) return;
+
+            const submitButton = bookingForm.querySelector('.submit-btn');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            const formData = {
+                sessionType: selectedSession,
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                date: dateInput.value,
+                time: timeInput.value,
+                message: document.getElementById('message').value.trim()
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Show success message
+                    const successHTML = `
+                        <div class="success-message" style="text-align: center; padding: 40px;">
+                            <h2 style="color: #4CAF50; margin-bottom: 20px;">Booking Submitted Successfully!</h2>
+                            <p style="font-size: 1.1em; margin-bottom: 15px;">Thank you for choosing Studio Pro.</p>
+                            <p style="color: #666;">We will contact you soon to confirm your appointment.</p>
+                            <button onclick="window.location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #000; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Book Another Session</button>
+                        </div>
+                    `;
+                    bookingForm.innerHTML = successHTML;
+                } else {
+                    throw new Error(data.message || 'Error submitting booking');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert(error.message || 'An error occurred. Please try again later.');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Book Session';
+            }
+        });
+
+        // Date validation
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+    </script>
+</body>
+</html>

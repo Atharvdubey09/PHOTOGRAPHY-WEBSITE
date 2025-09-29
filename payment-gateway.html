@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - Studio Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Payment Gateway Modal -->
+    <div id="payment-gateway-modal" class="payment-gateway-modal">
+        <div class="payment-modal-overlay"></div>
+        <div class="payment-modal-container">
+            <!-- Payment Header -->
+            <div class="payment-header">
+                <div class="payment-logo">
+                    <i class="fas fa-camera"></i>
+                    <span>Studio Pro</span>
+                </div>
+                <button class="payment-close" onclick="closePaymentGateway()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Payment Progress Steps -->
+            <div class="payment-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span>Booking Details</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span>Payment Method</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+
+            <!-- Payment Content -->
+            <div class="payment-content">
+                <!-- Step 1: Booking Summary -->
+                <div class="payment-step" id="step-1" style="display: block;">
+                    <div class="booking-summary">
+                        <h2><i class="fas fa-receipt"></i> Booking Summary</h2>
+                        
+                        <div class="booking-details" id="booking-details">
+                            <!-- Dynamic booking details will be populated here -->
+                        </div>
+
+                        <div class="payment-summary">
+                            <div class="summary-row">
+                                <span>Session Type:</span>
+                                <span id="session-type-display">Portrait Session</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Total Amount:</span>
+                                <span id="total-amount">$199.00</span>
+                            </div>
+                            <div class="summary-row advance-row">
+                                <span>Advance Payment (30%):</span>
+                                <span id="advance-amount">$59.70</span>
+                            </div>
+                            <div class="summary-row remaining-row">
+                                <span>Remaining Amount:</span>
+                                <span id="remaining-amount">$139.30</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-note">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Pay 30% advance to confirm your booking. The remaining amount will be collected on the day of your session.</p>
+                        </div>
+
+                        <button class="payment-btn primary" onclick="goToStep(2)">
+                            <i class="fas fa-arrow-right"></i>
+                            Proceed to Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment Method -->
+                <div class="payment-step" id="step-2" style="display: none;">
+                    <div class="payment-methods">
+                        <h2><i class="fas fa-credit-card"></i> Select Payment Method</h2>
+                        
+                        <!-- Payment Method Tabs -->
+                        <div class="payment-tabs">
+                            <button class="payment-tab active" data-method="card" onclick="selectPaymentMethod('card')">
+                                <i class="fas fa-credit-card"></i>
+                                Credit/Debit Card
+                            </button>
+                            <button class="payment-tab" data-method="paypal" onclick="selectPaymentMethod('paypal')">
+                                <i class="fab fa-paypal"></i>
+                                PayPal
+                            </button>
+                            <button class="payment-tab" data-method="apple" onclick="selectPaymentMethod('apple')">
+                                <i class="fab fa-apple-pay"></i>
+                                Apple Pay
+                            </button>
+                            <button class="payment-tab" data-method="google" onclick="selectPaymentMethod('google')">
+                                <i class="fab fa-google-pay"></i>
+                                Google Pay
+                            </button>
+                        </div>
+
+                        <!-- Card Payment Form -->
+                        <div class="payment-form-container" id="card-form" style="display: block;">
+                            <form id="payment-form" class="payment-form">
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="card-number">Card Number</label>
+                                        <div class="card-input-wrapper">
+                                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                            <div class="card-icons">
+                                                <i class="fab fa-cc-visa"></i>
+                                                <i class="fab fa-cc-mastercard"></i>
+                                                <i class="fab fa-cc-amex"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-name">Cardholder Name</label>
+                                        <input type="text" id="card-name" placeholder="John Doe" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="card-expiry">Expiry Date</label>
+                                        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card-cvv">CVV</label>
+                                        <input type="text" id="card-cvv" placeholder="123" maxlength="4" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="billing-zip">Billing ZIP</label>
+                                        <input type="text" id="billing-zip" placeholder="12345" required>
+                                    </div>
+                                </div>
+
+                                <div class="save-card-option">
+                                    <input type="checkbox" id="save-card" name="save-card">
+                                    <label for="save-card">Save this card for future payments</label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Alternative Payment Methods -->
+                        <div class="payment-form-container" id="paypal-form" style="display: none;">
+                            <div class="alternative-payment">
+                                <div class="payment-logo-large">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <p>You will be redirected to PayPal to complete your payment securely.</p>
+                                <div class="payment-amount">
+                                    <span>Amount to Pay: </span>
+                                    <strong id="paypal-amount">$59.70</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-form-container" id="apple-form" style="display: none;">
+                            <div class="alternative-payment">
+                                <div class="payment-logo-large">
+                                    <i class="fab fa-apple-pay"></i>
+                                </div>
+                                <p>Use Touch ID or Face ID to complete your payment with Apple Pay.</p>
+                                <div class="payment-amount">
+                                    <span>Amount to Pay: </span>
+                                    <strong id="apple-amount">$59.70</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-form-container" id="google-form" style="display: none;">
+                            <div class="alternative-payment">
+                                <div class="payment-logo-large">
+                                    <i class="fab fa-google-pay"></i>
+                                </div>
+                                <p>Pay quickly and securely with Google Pay.</p>
+                                <div class="payment-amount">
+                                    <span>Amount to Pay: </span>
+                                    <strong id="google-amount">$59.70</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Actions -->
+                        <div class="payment-actions">
+                            <button class="payment-btn secondary" onclick="goToStep(1)">
+                                <i class="fas fa-arrow-left"></i>
+                                Back
+                            </button>
+                            <button class="payment-btn primary" id="process-payment-btn" onclick="processPayment()">
+                                <i class="fas fa-lock"></i>
+                                Pay Securely
+                                <span class="amount-display" id="pay-amount">$59.70</span>
+                            </button>
+                        </div>
+
+                        <!-- Security Info -->
+                        <div class="security-info">
+                            <div class="security-badges">
+                                <div class="security-badge">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>SSL Encrypted</span>
+                                </div>
+                                <div class="security-badge">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Secure Payment</span>
+                                </div>
+                                <div class="security-badge">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>PCI Compliant</span>
+                                </div>
+                            </div>
+                            <p>Your payment information is protected with bank-level security.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="payment-step" id="step-3" style="display: none;">
+                    <div class="payment-confirmation">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Payment Successful!</h2>
+                        <p>Your booking has been confirmed. A confirmation email has been sent to your registered email address.</p>
+                        
+                        <div class="confirmation-details" id="confirmation-details">
+                            <!-- Dynamic confirmation details will be populated here -->
+                        </div>
+
+                        <div class="confirmation-actions">
+                            <button class="payment-btn primary" onclick="window.location.href='index.html'">
+                                <i class="fas fa-home"></i>
+                                Return to Home
+                            </button>
+                            <button class="payment-btn secondary" onclick="window.location.href='booking.html'">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Another Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Overlay -->
+                <div class="payment-processing" id="payment-processing" style="display: none;">
+                    <div class="processing-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <h3>Processing Payment...</h3>
+                    <p>Please wait while we process your payment securely.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/payment-gateway.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Upload Test - Studio Pro</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin: 0;
+        }
+        
+        .test-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 2rem;
+            background: rgba(102, 126, 234, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-area:hover {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .error {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+        
+        #file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🖼️ Gallery Upload Test</h1>
+        <p>Test the admin gallery upload functionality</p>
+        
+        <div class="upload-area" onclick="document.getElementById('file-input').click()">
+            <div id="upload-content">
+                <i style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;">📁</i>
+                <p>Click to select image files</p>
+            </div>
+        </div>
+        
+        <input type="file" id="file-input" multiple accept="image/*">
+        
+        <div id="result"></div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 10px; font-size: 0.9rem; color: #666;">
+            <strong>Updated Contact Info:</strong><br>
+            📧 dubeyatharv36@gmail.com<br>
+            📞 7021763330<br>
+            📍 Mumbai, Maharashtra, India
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', async function(e) {
+            const files = e.target.files;
+            const resultDiv = document.getElementById('result');
+            const uploadContent = document.getElementById('upload-content');
+            
+            if (files.length === 0) return;
+            
+            // Show uploading state
+            uploadContent.innerHTML = '<div style="color: #667eea;">📤 Uploading...</div>';
+            resultDiv.innerHTML = '';
+            
+            try {
+                for (let file of files) {
+                    if (file.type.startsWith('image/')) {
+                        const formData = new FormData();
+                        formData.append('image', file);
+                        formData.append('title', file.name.split('.')[0]);
+                        formData.append('description', 'Test upload from gallery test page');
+                        formData.append('category', 'portfolio');
+                        
+                        const response = await fetch('http://localhost:5000/api/gallery/upload', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (response.ok) {
+                            const result = await response.json();
+                            resultDiv.innerHTML = `<div class="result success">✅ Upload successful!<br>File: ${file.name}<br>Server response: ${result.message}</div>`;
+                        } else {
+                            const error = await response.json();
+                            resultDiv.innerHTML = `<div class="result error">❌ Upload failed!<br>Error: ${error.message}</div>`;
+                        }
+                    } else {
+                        resultDiv.innerHTML = `<div class="result error">❌ Please select only image files</div>`;
+                    }
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                resultDiv.innerHTML = `<div class="result error">❌ Network error: ${error.message}</div>`;
+            } finally {
+                // Restore upload area
+                uploadContent.innerHTML = `
+                    <i style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;">📁</i>
+                    <p>Click to select image files</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Upload Test - Studio Pro</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; }
+        .upload-section { margin: 2rem 0; padding: 1rem; border: 2px dashed #ddd; border-radius: 8px; }
+        .test-results { margin: 2rem 0; padding: 1rem; background: #f9f9f9; border-radius: 8px; }
+        .success { color: green; } .error { color: red; } .info { color: blue; }
+        button { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
+        .test-btn { background: #007bff; color: white; } .upload-btn { background: #28a745; color: white; }
+        input[type="file"] { margin: 10px 0; }
+        pre { background: #f8f8f8; padding: 1rem; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gallery Upload Test</h1>
+        
+        <!-- Admin Login Test -->
+        <div class="test-section">
+            <h3>Step 1: Admin Authentication Test</h3>
+            <p>Username: admin | Password: admin123</p>
+            <button class="test-btn" onclick="testAdminLogin()">Test Admin Login</button>
+            <div id="login-result" class="test-results"></div>
+        </div>
+
+        <!-- Gallery Load Test -->
+        <div class="test-section">
+            <h3>Step 2: Gallery Load Test</h3>
+            <button class="test-btn" onclick="testGalleryLoad()">Test Gallery Load</button>
+            <div id="gallery-result" class="test-results"></div>
+        </div>
+
+        <!-- Upload Test -->
+        <div class="test-section">
+            <h3>Step 3: Image Upload Test</h3>
+            <div class="upload-section">
+                <input type="file" id="test-image" accept="image/*">
+                <button class="upload-btn" onclick="testImageUpload()">Test Upload</button>
+            </div>
+            <div id="upload-result" class="test-results"></div>
+        </div>
+
+        <!-- Static File Test -->
+        <div class="test-section">
+            <h3>Step 4: Static File Access Test</h3>
+            <button class="test-btn" onclick="testStaticFiles()">Test Static Files</button>
+            <div id="static-result" class="test-results"></div>
+        </div>
+    </div>
+
+    <script>
+        let adminToken = null;
+
+        async function testAdminLogin() {
+            const resultDiv = document.getElementById('login-result');
+            resultDiv.innerHTML = '<div class="info">Testing admin login...</div>';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'admin123'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    adminToken = data.token;
+                    resultDiv.innerHTML = `
+                        <div class="success">✓ Admin login successful!</div>
+                        <pre>Token: ${adminToken.substring(0, 20)}...</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">✗ Admin login failed</div>
+                        <pre>Error: ${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">✗ Connection error</div>
+                    <pre>Error: ${error.message}</pre>
+                `;
+            }
+        }
+
+        async function testGalleryLoad() {
+            const resultDiv = document.getElementById('gallery-result');
+            
+            if (!adminToken) {
+                resultDiv.innerHTML = '<div class="error">✗ Please login first</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div class="info">Loading gallery items...</div>';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/gallery', {
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✓ Gallery loaded successfully!</div>
+                        <div>Found ${data.length} items</div>
+                        <pre>${JSON.stringify(data.slice(0, 2), null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">✗ Gallery load failed</div>
+                        <pre>Status: ${response.status}
+Error: ${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">✗ Connection error</div>
+                    <pre>Error: ${error.message}</pre>
+                `;
+            }
+        }
+
+        async function testImageUpload() {
+            const resultDiv = document.getElementById('upload-result');
+            const fileInput = document.getElementById('test-image');
+            
+            if (!adminToken) {
+                resultDiv.innerHTML = '<div class="error">✗ Please login first</div>';
+                return;
+            }
+
+            if (!fileInput.files.length) {
+                resultDiv.innerHTML = '<div class="error">✗ Please select an image file</div>';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            resultDiv.innerHTML = '<div class="info">Uploading image...</div>';
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('title', 'Test Upload');
+                formData.append('description', 'Testing image upload functionality');
+                formData.append('category', 'portfolio');
+
+                const response = await fetch('http://localhost:5000/api/gallery/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✓ Upload successful!</div>
+                        <div>Image URL: ${data.galleryItem.imageUrl}</div>
+                        <img src="http://localhost:5000${data.galleryItem.imageUrl}" style="max-width: 200px; margin: 10px 0;" alt="Uploaded image">
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">✗ Upload failed</div>
+                        <pre>Status: ${response.status}
+Error: ${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">✗ Upload error</div>
+                    <pre>Error: ${error.message}</pre>
+                `;
+            }
+        }
+
+        async function testStaticFiles() {
+            const resultDiv = document.getElementById('static-result');
+            resultDiv.innerHTML = '<div class="info">Testing static file access...</div>';
+
+            try {
+                // Test accessing an existing uploaded file
+                const response = await fetch('http://localhost:5000/uploads/image-1759090413060-183478467.jpg');
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✓ Static files accessible!</div>
+                        <div>Status: ${response.status}</div>
+                        <img src="http://localhost:5000/uploads/image-1759090413060-183478467.jpg" style="max-width: 200px; margin: 10px 0;" alt="Test image">
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">✗ Static file access failed</div>
+                        <div>Status: ${response.status}</div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">✗ Static file test error</div>
+                    <pre>Error: ${error.message}</pre>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
